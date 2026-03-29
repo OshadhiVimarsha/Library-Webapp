@@ -14,7 +14,6 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, fetchUsers, sele
     nic: '', name: '', email: '', address: '', mobile: ''
   });
 
-  // Modal එක open වන විට selectedUser සිටී නම් fields පුරවන්න
   useEffect(() => {
     if (selectedUser) {
       setFormData(selectedUser);
@@ -29,13 +28,10 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, fetchUsers, sele
     e.preventDefault();
     try {
       const data = new FormData();
-      
-      // දත්ත append කිරීමට පෙර trim() කිරීමෙන් අනවශ්‍ය spaces ඉවත් කළ හැක
       data.append('nic', formData.nic.trim());
       data.append('name', formData.name.trim());
       data.append('email', formData.email.trim());
       
-      // Backend එකේ මේවා @NotBlank නම්, හිස්ව යැවීම 400 error එකට හේතු විය හැක
       data.append('address', formData.address ? formData.address.trim() : "");
       data.append('mobile', formData.mobile ? formData.mobile.trim() : "");
 
@@ -50,7 +46,6 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, fetchUsers, sele
       fetchUsers();
       onClose();
     } catch (error: any) {
-      // ⚠️ මෙහිදී error.response?.data?.detail හෝ messages පරීක්ෂා කරන්න
       console.error("Backend Error Detail:", error.response?.data);
       const msg = error.response?.data?.detail || error.response?.data?.message || "Action Failed!";
       alert("Error: " + msg);
@@ -78,7 +73,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, fetchUsers, sele
           <div className="grid grid-cols-2 gap-4">
             <input 
               value={formData.nic}
-              disabled={!!selectedUser} // Update කරන විට NIC එක වෙනස් කිරීමට ඉඩ නොදෙයි
+              disabled={!!selectedUser} 
               placeholder="NIC Number"
               className={`p-3 rounded-xl outline-none ${selectedUser ? 'bg-gray-200' : 'bg-[#F1F3F1]'}`}
               onChange={(e) => setFormData({...formData, nic: e.target.value})}

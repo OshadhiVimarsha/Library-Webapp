@@ -6,7 +6,6 @@ interface HeaderProps {
   onAddClick: () => void;
 }
 
-// 1. මෙතන { count, onAddClick } කියලා දෙකම ගන්න (ඔයා කලින් තිබ්බේ count විතරයි)
 const Header: React.FC<HeaderProps> = ({ count, onAddClick }) => (
   <div className="flex items-center justify-between mb-10">
     <div>
@@ -19,7 +18,6 @@ const Header: React.FC<HeaderProps> = ({ count, onAddClick }) => (
       </div>
     </div>
     
-    {/* 2. බටන් එකට onClick={onAddClick} ලබා දෙන්න */}
     <button 
       onClick={onAddClick}
       className="flex items-center px-5 py-2.5 bg-[#053D1C] text-white rounded-lg hover:bg-[#0a4d25] transition-colors shadow-sm text-sm font-medium cursor-pointer"

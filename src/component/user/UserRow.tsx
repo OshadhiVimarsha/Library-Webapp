@@ -4,7 +4,7 @@ import { User, Mail, MapPin, Phone, Pencil, Trash2 } from 'lucide-react';
 interface UserRowProps {
   user: any;
   onDelete: (nic: string) => void;
-  onEdit: () => void; // 👈 අලුතින් එක් කළ prop එක
+  onEdit: () => void; 
 }
 
 const UserRow: React.FC<UserRowProps> = ({ user, onDelete, onEdit }) => (
@@ -38,16 +38,14 @@ const UserRow: React.FC<UserRowProps> = ({ user, onDelete, onEdit }) => (
     </td>
     <td className="px-8 py-5 text-right">
       <div className="flex items-center justify-end space-x-2">
-        {/* Pencil Button - Edit සඳහා */}
         <button 
-          onClick={onEdit} // 👈 මෙතැනදී onEdit call කරයි
+          onClick={onEdit}
           className="p-2 text-[#053D1C] hover:bg-green-50 rounded-lg transition-colors"
           title="Edit User"
         >
           <Pencil size={16} strokeWidth={2.5} />
         </button>
 
-        {/* Trash Button - Delete සඳහා */}
         <button 
           onClick={() => onDelete(user.nic)}
           className="p-2 text-[#C53030] hover:bg-red-50 rounded-lg transition-colors"

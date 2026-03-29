@@ -10,7 +10,6 @@ function App() {
     <Router>
       <main className="min-h-screen bg-[#F8F9F8]">
         
-        {/* සරල Navigation Bar එකක් (Optional) */}
         <nav className="bg-white border-b border-gray-100 p-4 flex justify-center space-x-8 shadow-sm">
           <Link 
             to="/" 

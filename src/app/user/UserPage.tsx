@@ -10,7 +10,7 @@ const UserManagement: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<any>(null); // Edit සඳහා තෝරාගත් User
+  const [selectedUser, setSelectedUser] = useState<any>(null); 
 
   const fetchUsers = async () => {
     try {
@@ -41,13 +41,13 @@ const UserManagement: React.FC = () => {
   };
 
   const handleEdit = (user: any) => {
-    setSelectedUser(user); // Modal එකට දත්ත යවන්න කලින් user ව set කරන්න
+    setSelectedUser(user); 
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedUser(null); // Modal එක වහද්දි දත්ත හිස් කරන්න
+    setSelectedUser(null); 
   };
 
   const filteredUsers = users.filter(user => 
@@ -69,7 +69,7 @@ const UserManagement: React.FC = () => {
         <Header 
   count={users.length} 
   onAddClick={() => {
-    setSelectedUser(null); // වැදගත්: කලින් Edit කරපු කෙනාගේ දත්ත අයින් කරන්න
+    setSelectedUser(null); 
     setIsModalOpen(true);
   }} 
 />
