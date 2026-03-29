@@ -25,32 +25,37 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, fetchUsers, sele
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const data = new FormData();
-      data.append('nic', formData.nic.trim());
-      data.append('name', formData.name.trim());
-      data.append('email', formData.email.trim());
-      
-      data.append('address', formData.address ? formData.address.trim() : "");
-      data.append('mobile', formData.mobile ? formData.mobile.trim() : "");
+  e.preventDefault();
+  try {
+    const data = new FormData();
+    // ඉතා වැදගත්: Backend එකේ Regex එකට ගැලපෙන NIC එකක් යවන්න (ඉලක්කම් 9 + V)
+    data.append('nic', formData.nic.trim());
+    data.append('name', formData.name.trim());
+    data.append('email', formData.email.trim());
+    data.append('address', formData.address ? formData.address.trim() : "");
+    data.append('mobile', formData.mobile ? formData.mobile.trim() : "");
 
-      if (selectedUser) {
-        await updateUser(selectedUser.nic, data);
-        alert("User Updated Successfully!");
-      } else {
-        await createUser(data);
-        alert("User Created Successfully!");
-      }
-
-      fetchUsers();
-      onClose();
-    } catch (error: any) {
-      console.error("Backend Error Detail:", error.response?.data);
-      const msg = error.response?.data?.detail || error.response?.data?.message || "Action Failed!";
-      alert("Error: " + msg);
+    if (selectedUser) {
+      await updateUser(selectedUser.nic, data);
+      alert("User Updated Successfully!");
+    } else {
+      await createUser(data);
+      alert("User Created Successfully!");
     }
-  };
+
+    fetchUsers();
+    onClose();
+  } catch (error: any) {
+    // 400 Error එකේ විස්තර මෙතනින් බලාගන්න
+    console.error("Backend Validation Error:", error.response?.data);
+    
+    // වැරැද්ද පැහැදිලිව පෙන්වීමට
+    const detail = error.response?.data?.errors?.[0]?.defaultMessage || 
+                   error.response?.data?.message || 
+                   "NIC format invalid or missing data!";
+    alert("Error: " + detail);
+  }
+};
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
